@@ -1,401 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Birthday Surprise 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Birthday Surprise 💖</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 
-  <style>
+<style>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
-    body{
-      height:100vh;
-      overflow:hidden;
-      background:linear-gradient(135deg,#ffd6e7,#ffc2d1,#ffb3c6);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      position:relative;
-    }
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#ffd6e7,#ffc2d1,#ffb3c6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
 
-    /* MAIN CARD */
+/* MAIN */
 
-    .container{
-      width:90%;
-      max-width:750px;
-      padding:45px;
-      border-radius:35px;
-      background:rgba(255,255,255,0.15);
-      backdrop-filter:blur(15px);
-      text-align:center;
-      box-shadow:0 10px 40px rgba(255,105,180,0.25);
-      position:relative;
-      z-index:2;
-      animation:fadeIn 1.5s ease;
-    }
+.container{
+  width:90%;
+  max-width:750px;
+  padding:45px;
+  border-radius:35px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  text-align:center;
+  box-shadow:0 10px 40px rgba(255,105,180,0.25);
+  z-index:2;
+  animation:fadeIn 1.5s ease;
+}
 
-    h1{
-      font-family:'Pacifico',cursive;
-      color:white;
-      font-size:4rem;
-      text-shadow:0 4px 15px rgba(255,255,255,0.5);
-      animation:floatTitle 2s infinite alternate;
-    }
+h1{
+  font-family:'Pacifico',cursive;
+  color:white;
+  font-size:4rem;
+  animation:float 2s infinite alternate;
+  text-shadow:0 4px 15px rgba(255,255,255,0.5);
+}
 
-    .typing{
-      margin-top:20px;
-      color:white;
-      font-size:1.2rem;
-      line-height:1.8;
-      min-height:120px;
-      white-space:pre-line;
-    }
+.typing{
+  margin-top:20px;
+  color:white;
+  font-size:1.2rem;
+  min-height:120px;
+  white-space:pre-line;
+}
 
-    button{
-      margin-top:25px;
-      padding:14px 35px;
-      border:none;
-      border-radius:50px;
-      background:white;
-      color:#ff4f8b;
-      font-size:1rem;
-      font-weight:600;
-      cursor:pointer;
-      transition:0.3s;
-      margin-right:10px;
-    }
+button{
+  margin-top:20px;
+  padding:14px 30px;
+  border:none;
+  border-radius:50px;
+  background:white;
+  color:#ff4f8b;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
 
-    button:hover{
-      transform:scale(1.08);
-      background:#ffe4ec;
-    }
+button:hover{
+  transform:scale(1.08);
+  background:#ffe4ec;
+}
 
-    /* FLOATING HEARTS */
+/* HEARTS */
 
-    .heart{
-      position:absolute;
-      bottom:-100px;
-      font-size:22px;
-      animation:floatUp linear infinite;
-      opacity:0.7;
-    }
+.heart{
+  position:absolute;
+  bottom:-100px;
+  font-size:22px;
+  animation:floatUp linear infinite;
+  opacity:0.7;
+}
 
-    @keyframes floatUp{
-      from{
-        transform:translateY(0) rotate(0deg);
-      }
-      to{
-        transform:translateY(-120vh) rotate(360deg);
-      }
-    }
+@keyframes floatUp{
+  to{
+    transform:translateY(-120vh) rotate(360deg);
+  }
+}
 
-    /* PHOTO SLIDESHOW */
+/* ENVELOPE */
 
-    .slideshow{
-      width:180px;
-      height:180px;
-      border-radius:50%;
-      overflow:hidden;
-      margin:20px auto;
-      border:5px solid rgba(255,255,255,0.6);
-      box-shadow:0 5px 20px rgba(255,255,255,0.3);
-    }
+.envelope-screen{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ffd6e7,#ffb6c1);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:999;
+}
 
-    .slideshow img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
+.envelope{
+  width:220px;
+  height:150px;
+  background:#ff8fab;
+  border-radius:10px;
+  cursor:pointer;
+  animation:bounce 2s infinite;
+}
 
-    /* ENVELOPE */
+.envelope::before{
+  content:'';
+  position:absolute;
+  width:220px;
+  height:150px;
+  clip-path:polygon(0 0,50% 50%,100% 0);
+  background:#ffb3c6;
+}
 
-    .envelope-screen{
-      position:fixed;
-      inset:0;
-      background:linear-gradient(135deg,#ffd6e7,#ffb6c1);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:999;
-      flex-direction:column;
-      transition:1s;
-    }
+.envelope-text{
+  color:white;
+  margin-top:20px;
+}
 
-    .envelope{
-      width:220px;
-      height:150px;
-      background:#ff8fab;
-      position:relative;
-      border-radius:10px;
-      cursor:pointer;
-      animation:bounce 2s infinite;
-    }
+/* SURPRISE */
 
-    .envelope::before{
-      content:'';
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      clip-path:polygon(0 0,50% 50%,100% 0);
-      background:#ffb3c6;
-    }
+.surprise{
+  position:fixed;
+  inset:0;
+  background:rgba(255,182,193,0.96);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  opacity:0;
+  visibility:hidden;
+  transition:0.5s;
+  z-index:1000;
+  text-align:center;
+  padding:20px;
+}
 
-    .envelope-text{
-      color:white;
-      margin-top:25px;
-      font-size:1.2rem;
-    }
+.surprise.active{
+  opacity:1;
+  visibility:visible;
+}
 
-    @keyframes bounce{
-      50%{
-        transform:translateY(-10px);
-      }
-    }
+.surprise h2{
+  font-size:4rem;
+  color:white;
+  animation:zoom 1s infinite alternate;
+}
 
-    /* SURPRISE OVERLAY */
+.surprise p{
+  color:white;
+  font-size:1.3rem;
+  margin-top:20px;
+  max-width:700px;
+}
 
-    .surprise{
-      position:fixed;
-      inset:0;
-      background:rgba(255,182,193,0.96);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      z-index:1000;
-      opacity:0;
-      visibility:hidden;
-      transition:0.5s;
-      text-align:center;
-      padding:20px;
-    }
+@keyframes zoom{
+  to{transform:scale(1.08);}
+}
 
-    .surprise.active{
-      opacity:1;
-      visibility:visible;
-    }
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
-    .surprise h2{
-      font-size:4rem;
-      color:white;
-      animation:zoom 1s infinite alternate;
-    }
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-8px);}
+}
 
-    .surprise p{
-      margin-top:20px;
-      color:white;
-      font-size:1.3rem;
-      line-height:1.8;
-      max-width:700px;
-    }
-
-    @keyframes zoom{
-      from{
-        transform:scale(1);
-      }
-      to{
-        transform:scale(1.08);
-      }
-    }
-
-    /* CONFETTI */
-
-    .confetti{
-      position:absolute;
-      width:10px;
-      height:10px;
-      background:white;
-      top:-20px;
-      animation:confettiFall linear infinite;
-    }
-
-    @keyframes confettiFall{
-      to{
-        transform:translateY(120vh) rotate(720deg);
-      }
-    }
-
-    @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translateY(20px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    @keyframes floatTitle{
-      from{
-        transform:translateY(0);
-      }
-      to{
-        transform:translateY(-8px);
-      }
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
-  <!-- ENVELOPE -->
-  <div class="envelope-screen" id="envelopeScreen">
-    <div class="envelope" onclick="openLetter()"></div>
+<!-- ENVELOPE -->
+<div class="envelope-screen" id="envelopeScreen">
+  <div class="envelope" onclick="openLetter()"></div>
+  <div class="envelope-text">Tap envelope 💌</div>
+</div>
 
-    <div class="envelope-text">
-      Tap the envelope 💌
-    </div>
-  </div>
+<!-- HEARTS -->
+<div class="heart" style="left:10%; animation-duration:8s;">💖</div>
+<div class="heart" style="left:30%; animation-duration:10s;">💕</div>
+<div class="heart" style="left:50%; animation-duration:7s;">💗</div>
+<div class="heart" style="left:70%; animation-duration:9s;">💞</div>
 
-  <!-- FLOATING HEARTS -->
-  <div class="heart" style="left:10%; animation-duration:8s;">💖</div>
-  <div class="heart" style="left:25%; animation-duration:10s;">💕</div>
-  <div class="heart" style="left:40%; animation-duration:7s;">💗</div>
-  <div class="heart" style="left:60%; animation-duration:9s;">💞</div>
-  <div class="heart" style="left:80%; animation-duration:11s;">💖</div>
+<!-- MAIN -->
+<div class="container">
 
-  <!-- MAIN -->
-  <div class="container">
+<h1>🎂 Happy Birthday 🎀</h1>
 
-    <h1>🎂 Happy Birthday 🎀</h1>
+<div class="typing" id="typing"></div>
 
-    <!-- SLIDESHOW -->
-    <div class="slideshow">
-      <img id="slide" src="https://i.pinimg.com/736x/79/1d/66/791d6697bb4f6f9743e2f42d8060212d.jpg">
-    </div>
+<!-- YouTube Music -->
+<iframe
+  id="music"
+  width="0"
+  height="0"
+  src="https://www.youtube.com/embed/ByOpP4f-228?autoplay=1&loop=1&playlist=ByOpP4f-228"
+  frameborder="0"
+  allow="autoplay">
+</iframe>
 
-    <!-- TYPING MESSAGE -->
-    <div class="typing" id="typing"></div>
+<button onclick="showSurprise()">Open Surprise 🎁</button>
+<button onclick="loveQuestion()">One More Thing 👀</button>
 
-    <button onclick="showSurprise()">
-      Open Surprise 🎁
-    </button>
+</div>
 
-    <button onclick="playMusic()">
-      Play Music 🎵
-    </button>
+<!-- SURPRISE -->
+<div class="surprise" id="surprise">
 
-  </div>
+<h2>💖 Surprise 💖</h2>
 
-  <!-- FINAL SURPRISE -->
-  <div class="surprise" id="surprise">
+<p>
+Out of everyone in this world...<br><br>
+I’m really thankful that you exist ✨<br><br>
+You deserve all the happiness 🎂💕
+</p>
 
-    <h2>💖 Surprise 💖</h2>
+</div>
 
-    <p>
-      Out of everyone in this world...<br><br>
+<script>
 
-      I’m really thankful that you exist ✨<br><br>
+// envelope
+function openLetter(){
+  document.getElementById("envelopeScreen").style.display="none";
+}
 
-      You deserve all the happiness,
-      love, and success in life 🎂💕
-    </p>
+// typing effect
+const text = `
+To someone special 💕
+Happy Birthday!!
 
-    <button onclick="loveQuestion()">
-      One More Thing 👀
-    </button>
-
-  </div>
-
-  <!-- MUSIC -->
-  <audio id="music" loop>
-    <source src="birthday.mp3" type="audio/mp3">
-  </audio>
-
-  <script>
-
-    // Envelope Open
-    function openLetter(){
-      document.getElementById("envelopeScreen").style.opacity="0";
-
-      setTimeout(()=>{
-        document.getElementById("envelopeScreen").style.display="none";
-      },1000);
-    }
-
-    // Typing Effect
-    const text = `
-To someone very special 💕
-
-I hope your birthday becomes one of the happiest days of your life ✨
-
-Keep smiling because your smile makes everything brighter 🌸
+You make the world softer and brighter ✨
 `;
 
-    let i=0;
+let i=0;
+function typing(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML += text[i];
+    i++;
+    setTimeout(typing,40);
+  }
+}
+typing();
 
-    function typing(){
-      if(i<text.length){
-        document.getElementById("typing").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing,40);
-      }
-    }
+// surprise
+function showSurprise(){
+  document.getElementById("surprise").classList.add("active");
+}
 
-    typing();
+// TWIST BUTTON
+function loveQuestion(){
 
-    // Slideshow
-    const images=[
-      "https://i.pinimg.com/736x/79/1d/66/791d6697bb4f6f9743e2f42d8060212d.jpg",
-      "https://i.pinimg.com/736x/f5/7f/66/f57f6613cfd4cfa2fd1a09f73d7c4a9d.jpg",
-      "https://i.pinimg.com/736x/31/73/e7/3173e76d17c7c7584f7bcbb34dbe4b5e.jpg"
-    ];
+  alert("Napakasama mong tao 😭");
 
-    let current=0;
+  setTimeout(()=>{
+    alert("Alam mo ba yon? 💔");
+  },1200);
 
-    setInterval(()=>{
-      current=(current+1)%images.length;
-      document.getElementById("slide").src=images[current];
-    },3000);
+}
 
-    // Surprise
-    function showSurprise(){
-      document.getElementById("surprise").classList.add("active");
-    }
-
-    // Funny Twist
-    function loveQuestion(){
-
-      let answer=confirm("Do you love me? 😳");
-
-      if(answer){
-        alert("YIEEEEE 💖✨");
-      }else{
-        alert("Wrong answer 😭💔");
-      }
-
-    }
-
-    // Music
-    function playMusic(){
-      document.getElementById("music").play();
-    }
-
-    // CONFETTI
-    for(let i=0;i<40;i++){
-      let c=document.createElement("div");
-
-      c.className="confetti";
-      c.style.left=Math.random()*100+"vw";
-      c.style.animationDuration=(Math.random()*3+3)+"s";
-      c.style.opacity=Math.random();
-
-      document.body.appendChild(c);
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
