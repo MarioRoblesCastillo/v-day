@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday 💖</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise 💖</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:'Poppins', sans-serif;
+      font-family:'Poppins',sans-serif;
     }
 
     body{
@@ -28,39 +29,39 @@
     .container{
       width:90%;
       max-width:700px;
-      padding:40px;
-      border-radius:30px;
+      padding:45px;
+      border-radius:35px;
       background:rgba(255,255,255,0.15);
-      backdrop-filter:blur(12px);
+      backdrop-filter:blur(15px);
       text-align:center;
-      box-shadow:0 8px 32px rgba(255,105,180,0.2);
+      box-shadow:0 10px 40px rgba(255,105,180,0.25);
       z-index:2;
       animation:fadeIn 1.5s ease;
+      position:relative;
     }
 
     h1{
       font-size:4rem;
       color:white;
       text-shadow:0 4px 15px rgba(255,255,255,0.5);
-      margin-bottom:15px;
       animation:floatText 2s ease-in-out infinite alternate;
     }
 
-    .name{
-      color:#fff0f5;
-      font-weight:700;
-    }
-
     p{
-      color:white;
+      margin-top:20px;
       font-size:1.2rem;
       line-height:1.8;
-      margin-top:10px;
+      color:white;
+    }
+
+    .highlight{
+      color:#fff0f6;
+      font-weight:700;
     }
 
     button{
       margin-top:30px;
-      padding:14px 30px;
+      padding:14px 35px;
       border:none;
       border-radius:50px;
       background:white;
@@ -68,7 +69,7 @@
       font-size:1rem;
       font-weight:600;
       cursor:pointer;
-      transition:0.3s ease;
+      transition:0.3s;
       box-shadow:0 4px 15px rgba(255,255,255,0.3);
     }
 
@@ -79,25 +80,25 @@
 
     .heart{
       position:absolute;
-      color:white;
-      font-size:20px;
+      bottom:-100px;
+      font-size:22px;
       animation:floatUp linear infinite;
       opacity:0.7;
     }
 
     @keyframes floatUp{
       from{
-        transform:translateY(100vh) scale(1);
+        transform:translateY(0) rotate(0deg);
       }
       to{
-        transform:translateY(-120vh) scale(1.5);
+        transform:translateY(-120vh) rotate(360deg);
       }
     }
 
     @keyframes fadeIn{
       from{
         opacity:0;
-        transform:translateY(20px);
+        transform:translateY(30px);
       }
       to{
         opacity:1;
@@ -114,69 +115,153 @@
       }
     }
 
-    .sparkle{
-      position:absolute;
-      width:6px;
-      height:6px;
-      border-radius:50%;
-      background:white;
-      animation:twinkle 2s infinite;
-      opacity:0.8;
+    /* Hidden Surprise */
+
+    .surprise{
+      position:fixed;
+      inset:0;
+      background:rgba(255,182,193,0.95);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      z-index:999;
+      opacity:0;
+      visibility:hidden;
+      transition:0.5s;
+      text-align:center;
+      padding:20px;
     }
 
-    @keyframes twinkle{
-      0%{
-        transform:scale(0.5);
-        opacity:0.3;
+    .surprise.active{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .surprise h2{
+      color:white;
+      font-size:4rem;
+      animation:zoom 1s infinite alternate;
+    }
+
+    .surprise p{
+      max-width:700px;
+      margin-top:20px;
+      font-size:1.3rem;
+    }
+
+    @keyframes zoom{
+      from{
+        transform:scale(1);
       }
-      50%{
-        transform:scale(1.5);
-        opacity:1;
-      }
-      100%{
-        transform:scale(0.5);
-        opacity:0.3;
+      to{
+        transform:scale(1.08);
       }
     }
+
+    /* Fake loading */
+
+    .loading{
+      position:fixed;
+      inset:0;
+      background:#ffc2d1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      z-index:1000;
+      color:white;
+      transition:1s;
+    }
+
+    .loader{
+      width:70px;
+      height:70px;
+      border:6px solid rgba(255,255,255,0.3);
+      border-top:6px solid white;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+      margin-bottom:20px;
+    }
+
+    @keyframes spin{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
-  <!-- Floating Hearts -->
-  <div class="heart" style="left:10%; animation-duration:10s;">💖</div>
-  <div class="heart" style="left:25%; animation-duration:7s;">💕</div>
-  <div class="heart" style="left:40%; animation-duration:11s;">💗</div>
-  <div class="heart" style="left:60%; animation-duration:8s;">💞</div>
-  <div class="heart" style="left:75%; animation-duration:12s;">💖</div>
-  <div class="heart" style="left:90%; animation-duration:9s;">💕</div>
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+    <div class="loader"></div>
+    <h2>Preparing your surprise... 💖</h2>
+  </div>
 
-  <!-- Sparkles -->
-  <div class="sparkle" style="top:20%; left:15%;"></div>
-  <div class="sparkle" style="top:30%; left:80%;"></div>
-  <div class="sparkle" style="top:70%; left:20%;"></div>
-  <div class="sparkle" style="top:60%; left:75%;"></div>
+  <!-- Floating Hearts -->
+  <div class="heart" style="left:10%; animation-duration:8s;">💖</div>
+  <div class="heart" style="left:25%; animation-duration:10s;">💕</div>
+  <div class="heart" style="left:40%; animation-duration:7s;">💗</div>
+  <div class="heart" style="left:60%; animation-duration:9s;">💞</div>
+  <div class="heart" style="left:80%; animation-duration:11s;">💖</div>
 
   <div class="container">
     <h1>🎂 Happy Birthday 🎀</h1>
 
     <p>
-      To my special <span class="name">Birthday Girl</span> 💕<br><br>
+      Today is all about <span class="highlight">you</span> 💕<br><br>
 
-      May your day be filled with happiness, love, laughter,
-      and all the beautiful things you deserve ✨
-      Never stop smiling because your smile makes the world brighter 💖
+      I hope your day becomes as beautiful,
+      soft, and lovely as your smile ✨
     </p>
 
-    <button onclick="showMessage()">
-      Open Surprise 🎁
+    <button onclick="openSurprise()">
+      Tap For Secret 🎁
+    </button>
+  </div>
+
+  <!-- Surprise Twist -->
+  <div class="surprise" id="surprise">
+    <h2>💖 Surprise! 💖</h2>
+
+    <p>
+      Out of all the people in the world...<br><br>
+
+      I’m really thankful that <b>you exist</b> ✨<br><br>
+
+      Happy Birthday to someone truly special 🎂💕
+    </p>
+
+    <button onclick="closeSurprise()">
+      Close ✨
     </button>
   </div>
 
   <script>
-    function showMessage(){
-      alert("You are loved more than you know 💖✨");
+
+    // Fake loading intro
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("loading").style.opacity = "0";
+
+        setTimeout(() => {
+          document.getElementById("loading").style.display = "none";
+        },1000);
+
+      },2500);
+    };
+
+    function openSurprise(){
+      document.getElementById("surprise").classList.add("active");
     }
+
+    function closeSurprise(){
+      document.getElementById("surprise").classList.remove("active");
+    }
+
   </script>
 
 </body>
