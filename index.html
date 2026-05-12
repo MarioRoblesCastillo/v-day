@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Birthday Surprise 💖</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 
   <style>
 
@@ -19,48 +19,48 @@
     body{
       height:100vh;
       overflow:hidden;
+      background:linear-gradient(135deg,#ffd6e7,#ffc2d1,#ffb3c6);
       display:flex;
       justify-content:center;
       align-items:center;
-      background:linear-gradient(135deg,#ffd6e7,#ffc2d1,#ffb3c6);
       position:relative;
     }
 
+    /* MAIN CARD */
+
     .container{
       width:90%;
-      max-width:700px;
+      max-width:750px;
       padding:45px;
       border-radius:35px;
       background:rgba(255,255,255,0.15);
       backdrop-filter:blur(15px);
       text-align:center;
       box-shadow:0 10px 40px rgba(255,105,180,0.25);
+      position:relative;
       z-index:2;
       animation:fadeIn 1.5s ease;
-      position:relative;
     }
 
     h1{
-      font-size:4rem;
+      font-family:'Pacifico',cursive;
       color:white;
+      font-size:4rem;
       text-shadow:0 4px 15px rgba(255,255,255,0.5);
-      animation:floatText 2s ease-in-out infinite alternate;
+      animation:floatTitle 2s infinite alternate;
     }
 
-    p{
+    .typing{
       margin-top:20px;
+      color:white;
       font-size:1.2rem;
       line-height:1.8;
-      color:white;
-    }
-
-    .highlight{
-      color:#fff0f6;
-      font-weight:700;
+      min-height:120px;
+      white-space:pre-line;
     }
 
     button{
-      margin-top:30px;
+      margin-top:25px;
       padding:14px 35px;
       border:none;
       border-radius:50px;
@@ -70,13 +70,15 @@
       font-weight:600;
       cursor:pointer;
       transition:0.3s;
-      box-shadow:0 4px 15px rgba(255,255,255,0.3);
+      margin-right:10px;
     }
 
     button:hover{
       transform:scale(1.08);
       background:#ffe4ec;
     }
+
+    /* FLOATING HEARTS */
 
     .heart{
       position:absolute;
@@ -95,37 +97,82 @@
       }
     }
 
-    @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translateY(30px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
+    /* PHOTO SLIDESHOW */
+
+    .slideshow{
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      overflow:hidden;
+      margin:20px auto;
+      border:5px solid rgba(255,255,255,0.6);
+      box-shadow:0 5px 20px rgba(255,255,255,0.3);
+    }
+
+    .slideshow img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    /* ENVELOPE */
+
+    .envelope-screen{
+      position:fixed;
+      inset:0;
+      background:linear-gradient(135deg,#ffd6e7,#ffb6c1);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:999;
+      flex-direction:column;
+      transition:1s;
+    }
+
+    .envelope{
+      width:220px;
+      height:150px;
+      background:#ff8fab;
+      position:relative;
+      border-radius:10px;
+      cursor:pointer;
+      animation:bounce 2s infinite;
+    }
+
+    .envelope::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      clip-path:polygon(0 0,50% 50%,100% 0);
+      background:#ffb3c6;
+    }
+
+    .envelope-text{
+      color:white;
+      margin-top:25px;
+      font-size:1.2rem;
+    }
+
+    @keyframes bounce{
+      50%{
+        transform:translateY(-10px);
       }
     }
 
-    @keyframes floatText{
-      from{
-        transform:translateY(0px);
-      }
-      to{
-        transform:translateY(-8px);
-      }
-    }
-
-    /* Hidden Surprise */
+    /* SURPRISE OVERLAY */
 
     .surprise{
       position:fixed;
       inset:0;
-      background:rgba(255,182,193,0.95);
+      background:rgba(255,182,193,0.96);
       display:flex;
       justify-content:center;
       align-items:center;
       flex-direction:column;
-      z-index:999;
+      z-index:1000;
       opacity:0;
       visibility:hidden;
       transition:0.5s;
@@ -139,15 +186,17 @@
     }
 
     .surprise h2{
-      color:white;
       font-size:4rem;
+      color:white;
       animation:zoom 1s infinite alternate;
     }
 
     .surprise p{
-      max-width:700px;
       margin-top:20px;
+      color:white;
       font-size:1.3rem;
+      line-height:1.8;
+      max-width:700px;
     }
 
     @keyframes zoom{
@@ -159,34 +208,40 @@
       }
     }
 
-    /* Fake loading */
+    /* CONFETTI */
 
-    .loading{
-      position:fixed;
-      inset:0;
-      background:#ffc2d1;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      z-index:1000;
-      color:white;
-      transition:1s;
+    .confetti{
+      position:absolute;
+      width:10px;
+      height:10px;
+      background:white;
+      top:-20px;
+      animation:confettiFall linear infinite;
     }
 
-    .loader{
-      width:70px;
-      height:70px;
-      border:6px solid rgba(255,255,255,0.3);
-      border-top:6px solid white;
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-      margin-bottom:20px;
-    }
-
-    @keyframes spin{
+    @keyframes confettiFall{
       to{
-        transform:rotate(360deg);
+        transform:translateY(120vh) rotate(720deg);
+      }
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes floatTitle{
+      from{
+        transform:translateY(0);
+      }
+      to{
+        transform:translateY(-8px);
       }
     }
 
@@ -195,71 +250,149 @@
 
 <body>
 
-  <!-- Loading Screen -->
-  <div class="loading" id="loading">
-    <div class="loader"></div>
-    <h2>Preparing your surprise... 💖</h2>
+  <!-- ENVELOPE -->
+  <div class="envelope-screen" id="envelopeScreen">
+    <div class="envelope" onclick="openLetter()"></div>
+
+    <div class="envelope-text">
+      Tap the envelope 💌
+    </div>
   </div>
 
-  <!-- Floating Hearts -->
+  <!-- FLOATING HEARTS -->
   <div class="heart" style="left:10%; animation-duration:8s;">💖</div>
   <div class="heart" style="left:25%; animation-duration:10s;">💕</div>
   <div class="heart" style="left:40%; animation-duration:7s;">💗</div>
   <div class="heart" style="left:60%; animation-duration:9s;">💞</div>
   <div class="heart" style="left:80%; animation-duration:11s;">💖</div>
 
+  <!-- MAIN -->
   <div class="container">
+
     <h1>🎂 Happy Birthday 🎀</h1>
 
-    <p>
-      Today is all about <span class="highlight">you</span> 💕<br><br>
+    <!-- SLIDESHOW -->
+    <div class="slideshow">
+      <img id="slide" src="https://i.pinimg.com/736x/79/1d/66/791d6697bb4f6f9743e2f42d8060212d.jpg">
+    </div>
 
-      I hope your day becomes as beautiful,
-      soft, and lovely as your smile ✨
-    </p>
+    <!-- TYPING MESSAGE -->
+    <div class="typing" id="typing"></div>
 
-    <button onclick="openSurprise()">
-      Tap For Secret 🎁
+    <button onclick="showSurprise()">
+      Open Surprise 🎁
     </button>
+
+    <button onclick="playMusic()">
+      Play Music 🎵
+    </button>
+
   </div>
 
-  <!-- Surprise Twist -->
+  <!-- FINAL SURPRISE -->
   <div class="surprise" id="surprise">
-    <h2>💖 Surprise! 💖</h2>
+
+    <h2>💖 Surprise 💖</h2>
 
     <p>
-      Out of all the people in the world...<br><br>
+      Out of everyone in this world...<br><br>
 
-      I’m really thankful that <b>you exist</b> ✨<br><br>
+      I’m really thankful that you exist ✨<br><br>
 
-      Happy Birthday to someone truly special 🎂💕
+      You deserve all the happiness,
+      love, and success in life 🎂💕
     </p>
 
-    <button onclick="closeSurprise()">
-      Close ✨
+    <button onclick="loveQuestion()">
+      One More Thing 👀
     </button>
+
   </div>
+
+  <!-- MUSIC -->
+  <audio id="music" loop>
+    <source src="birthday.mp3" type="audio/mp3">
+  </audio>
 
   <script>
 
-    // Fake loading intro
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById("loading").style.opacity = "0";
+    // Envelope Open
+    function openLetter(){
+      document.getElementById("envelopeScreen").style.opacity="0";
 
-        setTimeout(() => {
-          document.getElementById("loading").style.display = "none";
-        },1000);
+      setTimeout(()=>{
+        document.getElementById("envelopeScreen").style.display="none";
+      },1000);
+    }
 
-      },2500);
-    };
+    // Typing Effect
+    const text = `
+To someone very special 💕
 
-    function openSurprise(){
+I hope your birthday becomes one of the happiest days of your life ✨
+
+Keep smiling because your smile makes everything brighter 🌸
+`;
+
+    let i=0;
+
+    function typing(){
+      if(i<text.length){
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing,40);
+      }
+    }
+
+    typing();
+
+    // Slideshow
+    const images=[
+      "https://i.pinimg.com/736x/79/1d/66/791d6697bb4f6f9743e2f42d8060212d.jpg",
+      "https://i.pinimg.com/736x/f5/7f/66/f57f6613cfd4cfa2fd1a09f73d7c4a9d.jpg",
+      "https://i.pinimg.com/736x/31/73/e7/3173e76d17c7c7584f7bcbb34dbe4b5e.jpg"
+    ];
+
+    let current=0;
+
+    setInterval(()=>{
+      current=(current+1)%images.length;
+      document.getElementById("slide").src=images[current];
+    },3000);
+
+    // Surprise
+    function showSurprise(){
       document.getElementById("surprise").classList.add("active");
     }
 
-    function closeSurprise(){
-      document.getElementById("surprise").classList.remove("active");
+    // Funny Twist
+    function loveQuestion(){
+
+      let answer=confirm("Do you love me? 😳");
+
+      if(answer){
+        alert("YIEEEEE 💖✨");
+      }else{
+        alert("Wrong answer 😭💔");
+      }
+
+    }
+
+    // Music
+    function playMusic(){
+      document.getElementById("music").play();
+    }
+
+    // CONFETTI
+    for(let i=0;i<40;i++){
+      let c=document.createElement("div");
+
+      c.className="confetti";
+      c.style.left=Math.random()*100+"vw";
+      c.style.animationDuration=(Math.random()*3+3)+"s";
+      c.style.opacity=Math.random();
+
+      document.body.appendChild(c);
     }
 
   </script>
